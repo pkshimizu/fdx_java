@@ -12,10 +12,10 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
-# Generated files
+# Generated file
 .idea/**/contentModel.xml
 
-# Sensitive or high-churn files
+# Sensitive or high-churn file
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
@@ -29,7 +29,7 @@
 .idea/**/libraries
 
 # Gradle and Maven with auto-import
-# When using Gradle or Maven with auto-import, you should exclude module files,
+# When using Gradle or Maven with auto-import, you should exclude module file,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
 # .idea/modules.xml
@@ -84,7 +84,7 @@ modules.xml
 # Log file
 *.log
 
-# BlueJ files
+# BlueJ file
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
@@ -109,7 +109,7 @@ hs_err_pid*
 # Ignore Gradle GUI config
 gradle-app.setting
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+# Avoid ignoring Gradle wrapper jar file (.jar file are usually ignored)
 !gradle-wrapper.jar
 
 # Cache of project
