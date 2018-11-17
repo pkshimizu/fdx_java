@@ -12,10 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -65,14 +62,14 @@ public class LocalFile implements VFile {
     }
 
     @Override
-    public Collection<VFile> getChildren() {
+    public List<VFile> getChildren(Comparator<VFile> comparator) {
         try (DirectoryStream<Path> dir = Files.newDirectoryStream(path)) {
             Spliterator<Path> iterator = Spliterators.spliteratorUnknownSize(dir.iterator(), 0);
             return StreamSupport.stream(iterator, false)
                     .map(path -> path.toString())
                     .map(VPath::new)
                     .map(LocalFile::new)
-                    .sorted(Comparator.comparing(file -> file.vpath))
+                    .sorted(comparator)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new FileException(e);

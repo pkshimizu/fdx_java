@@ -1,27 +1,30 @@
 package net.noncore.fdx.views.filer;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import net.noncore.fdx.domains.file.VFile;
+import net.noncore.fdx.domains.file.VFileType;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 
 public class FileRow {
+    private VFile file;
     private StringProperty nameProperty;
     private StringProperty updateDateProperty;
-    private LongProperty sizeProperty;
-    private StringProperty typeProperty;
+    private StringProperty sizeProperty;
 
     public FileRow(VFile file) {
+        this.file = file;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh.mm.ss");
         nameProperty = new SimpleStringProperty(file.getName());
         updateDateProperty = new SimpleStringProperty(file.getLastModifiedDateTime().format(formatter));
-        sizeProperty = new SimpleLongProperty(file.getSize());
-        typeProperty = new SimpleStringProperty(file.getType().toString());
+        if (file.getType() == VFileType.DIRECTORY) {
+            sizeProperty = new SimpleStringProperty("<DIR>");
+        } else {
+            NumberFormat format = NumberFormat.getNumberInstance();
+            sizeProperty = new SimpleStringProperty(format.format(file.getSize()));
+        }
     }
 
     public StringProperty nameProperty() {
@@ -32,11 +35,7 @@ public class FileRow {
         return updateDateProperty;
     }
 
-    public LongProperty sizeProperty() {
+    public StringProperty sizeProperty() {
         return sizeProperty;
-    }
-
-    public StringProperty typeProperty() {
-        return typeProperty;
     }
 }

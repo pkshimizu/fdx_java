@@ -4,13 +4,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 public interface VFile {
     String getName();
     VPath getPath();
     InputStream getInputStream();
     OutputStream getOutputStream();
-    Collection<VFile> getChildren();
+    default Collection<VFile> getChildren() {
+        return getChildren(Comparator.comparing(VFile::getPath));
+    }
+    List<VFile> getChildren(Comparator<VFile> comparator);
     VFile getParent();
     boolean isReadable();
     boolean isWritable();
