@@ -42,9 +42,9 @@ public class FileCell extends ListCell<FileRow> {
             setText(null);
             setGraphic(null);
         } else {
-            name.setText(item.nameProperty().get());
-            size.setText(item.sizeProperty().get());
-            date.setText(item.updateDateProperty().get());
+            name.textProperty().bind(item.nameProperty());
+            size.textProperty().bind(item.sizeProperty());
+            date.textProperty().bind(item.updateDateProperty());
             setGraphic(container);
         }
     }

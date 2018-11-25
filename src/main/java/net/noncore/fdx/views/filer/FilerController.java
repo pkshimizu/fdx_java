@@ -1,5 +1,6 @@
 package net.noncore.fdx.views.filer;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Component
 public class FilerController implements Initializable {
@@ -27,8 +30,12 @@ public class FilerController implements Initializable {
             }
             return vFile1.getType() == VFileType.DIRECTORY ? -1 : 1;
         };
-        VPath.getUserHome().toFile().getChildren(comparator).forEach(file -> {
-            list.getItems().add(new FileRow(file));
-        });
+        List<FileRow> rows = VPath.getUserHome().toFile().getChildren(comparator).stream().map(FileRow::new).collect(Collectors.toList());
+        list.itemsProperty().set(FXCollections.observableArrayList(rows));
+
+        list.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println(oldValue);
+            System.out.println(newValue);
+        }));
     }
 }
